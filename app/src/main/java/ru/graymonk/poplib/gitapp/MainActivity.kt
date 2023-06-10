@@ -1,10 +1,9 @@
 package ru.graymonk.poplib.gitapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import ru.graymonk.poplib.gitapp.databinding.ActivityMainBinding
+import ru.graymonk.poplib.gitapp.utils.Constants
 
 
 class MainActivity : AppCompatActivity(), MainView {
@@ -17,34 +16,34 @@ class MainActivity : AppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val listener = View.OnClickListener {
-            presenter.counterClick(it.id)
-        }
-        binding.mainActivityButtonCounterOne.setOnClickListener(listener)
-        binding.mainActivityButtonCounterTwo.setOnClickListener(listener)
-        binding.mainActivityButtonCounterThree.setOnClickListener(listener)
+
         setOnClickListener()
     }
 
     private fun setOnClickListener() {
-
+        binding.mainActivityButtonCounterOne.setOnClickListener {
+            presenter.counterClick(Constants.DEFAULT_VALUE_ZERO)
+        }
+        binding.mainActivityButtonCounterTwo.setOnClickListener {
+            presenter.counterClick(Constants.DEFAULT_VALUE_ONE)
+        }
+        binding.mainActivityButtonCounterThree.setOnClickListener {
+            presenter.counterClick(Constants.DEFAULT_VALUE_TWO)
+        }
     }
 
     override fun setCounterText(index: Int, text: String) {
         when (index) {
-            0 -> {
+            Constants.DEFAULT_VALUE_ZERO -> {
                 binding.mainActivityTextViewCounterOne.text = text
-                Toast.makeText(this, "Boom ", Toast.LENGTH_SHORT).show()
             }
 
-            1 -> {
+            Constants.DEFAULT_VALUE_ONE -> {
                 binding.mainActivityTextViewCounterTwo.text = text
-                Toast.makeText(this, "Boom ", Toast.LENGTH_SHORT).show()
             }
 
-            2 -> {
+            Constants.DEFAULT_VALUE_TWO -> {
                 binding.mainActivityTextViewCounterThree.text = text
-                Toast.makeText(this, "Boom ", Toast.LENGTH_SHORT).show()
             }
         }
     }
