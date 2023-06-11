@@ -1,16 +1,16 @@
 package ru.graymonk.poplib.gitapp
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 import ru.graymonk.poplib.gitapp.databinding.ActivityMainBinding
-import ru.graymonk.poplib.gitapp.utils.Constants
 
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(), MainView {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val presenter: MainPresenter = MainPresenter(this)
+    private val presenter by moxyPresenter { MainPresenter(CountersModel()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,29 +22,25 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private fun setOnClickListener() {
         binding.mainActivityButtonCounterOne.setOnClickListener {
-            presenter.counterClick(Constants.DEFAULT_VALUE_ZERO)
+            presenter.counterOneClick()
         }
         binding.mainActivityButtonCounterTwo.setOnClickListener {
-            presenter.counterClick(Constants.DEFAULT_VALUE_ONE)
+            presenter.counterTwoClick()
         }
         binding.mainActivityButtonCounterThree.setOnClickListener {
-            presenter.counterClick(Constants.DEFAULT_VALUE_TWO)
+            presenter.counterThreeClick()
         }
     }
 
-    override fun setCounterText(index: Int, text: String) {
-        when (index) {
-            Constants.DEFAULT_VALUE_ZERO -> {
-                binding.mainActivityTextViewCounterOne.text = text
-            }
+    override fun setCounterOneText(text: String) {
+        binding.mainActivityTextViewCounterOne.text = text
+    }
 
-            Constants.DEFAULT_VALUE_ONE -> {
-                binding.mainActivityTextViewCounterTwo.text = text
-            }
+    override fun setCounterTwoText(text: String) {
+        binding.mainActivityTextViewCounterTwo.text = text
+    }
 
-            Constants.DEFAULT_VALUE_TWO -> {
-                binding.mainActivityTextViewCounterThree.text = text
-            }
-        }
+    override fun setCounterThreeText(text: String) {
+        binding.mainActivityTextViewCounterThree.text = text
     }
 }

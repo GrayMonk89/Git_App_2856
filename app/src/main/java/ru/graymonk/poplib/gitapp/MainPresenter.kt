@@ -1,33 +1,31 @@
 package ru.graymonk.poplib.gitapp
 
+import moxy.MvpPresenter
 import ru.graymonk.poplib.gitapp.utils.Constants
 
-class MainPresenter(private val view: MainView) {
+class MainPresenter(private val countersModel: CountersModel) : MvpPresenter<MainView>() {
 
-    private val countersModel: CountersModel = CountersModel()
+    fun counterOneClick() {
 
-    fun counterClick(id: Int) {
-        when (id) {
-            Constants.DEFAULT_VALUE_ZERO -> {
-                view.setCounterText(
-                    Constants.DEFAULT_VALUE_ZERO,
-                    countersModel.setNextValue(0).toString()
-                )
-            }
+        viewState.setCounterOneText(
+            countersModel.setNextValue(Constants.DEFAULT_VALUE_ZERO).toString()
+        )
 
-            Constants.DEFAULT_VALUE_ONE -> {
-                view.setCounterText(
-                    Constants.DEFAULT_VALUE_ONE,
-                    countersModel.setNextValue(1).toString()
-                )
-            }
+    }
 
-            Constants.DEFAULT_VALUE_TWO -> {
-                view.setCounterText(
-                    Constants.DEFAULT_VALUE_TWO,
-                    countersModel.setNextValue(2).toString()
-                )
-            }
-        }
+    fun counterTwoClick() {
+
+        viewState.setCounterTwoText(
+            countersModel.setNextValue(Constants.DEFAULT_VALUE_ONE ).toString()
+        )
+
+    }
+
+    fun counterThreeClick() {
+
+        viewState.setCounterThreeText(
+            countersModel.setNextValue(Constants.DEFAULT_VALUE_TWO).toString()
+        )
+
     }
 }
