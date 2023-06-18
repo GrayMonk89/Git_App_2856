@@ -9,14 +9,13 @@ import ru.graymonk.poplib.gitapp.R
 import ru.graymonk.poplib.gitapp.databinding.ActivityMainBinding
 import ru.graymonk.poplib.gitapp.mvp.presenter.MainPresenter
 import ru.graymonk.poplib.gitapp.mvp.view.MainView
-import ru.graymonk.poplib.gitapp.navigation.AndroidScreens
 
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val presenter by moxyPresenter { MainPresenter(App.instance.router, AndroidScreens()) }
+    private val presenter by moxyPresenter { MainPresenter(App.instance.router, App.instance.androidScreens) }
 
 
 

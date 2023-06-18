@@ -3,6 +3,7 @@ package ru.graymonk.poplib.gitapp
 import android.app.Application
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
+import ru.graymonk.poplib.gitapp.navigation.AndroidScreens
 
 class App : Application() {
     companion object {
@@ -20,4 +21,6 @@ class App : Application() {
     val navigationHolder = cicerone.getNavigatorHolder()
 
     val router = cicerone.router
+
+    val androidScreens = AndroidScreens()
 }

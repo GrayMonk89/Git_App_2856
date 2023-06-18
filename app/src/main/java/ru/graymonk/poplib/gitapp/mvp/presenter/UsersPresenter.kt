@@ -7,9 +7,10 @@ import ru.graymonk.poplib.gitapp.mvp.model.GitHubUsersRepository
 import ru.graymonk.poplib.gitapp.mvp.presenter.list.IUserListPresenter
 import ru.graymonk.poplib.gitapp.mvp.view.UsersView
 import ru.graymonk.poplib.gitapp.mvp.view.list.UserItemView
+import ru.graymonk.poplib.gitapp.navigation.IScreens
 import ru.graymonk.poplib.gitapp.ui.activity.BackButtonListener
 
-class UsersPresenter(private val usersRepository: GitHubUsersRepository, private val router: Router) :
+class UsersPresenter(private val usersRepository: GitHubUsersRepository, private val router: Router, private val screens : IScreens) :
     MvpPresenter<UsersView>(), BackButtonListener {
 
     val usersListPresenter = UsersListPresenter()
@@ -35,7 +36,7 @@ class UsersPresenter(private val usersRepository: GitHubUsersRepository, private
         loadData()
 
         usersListPresenter.itemClickListener = {
-
+            router.navigateTo(screens.userDetails(usersRepository.getUsersList()[it.pos]))
         }
     }
 
