@@ -10,10 +10,15 @@ import ru.graymonk.poplib.gitapp.mvp.view.list.UserItemView
 import ru.graymonk.poplib.gitapp.navigation.IScreens
 import ru.graymonk.poplib.gitapp.ui.activity.BackButtonListener
 
-class UsersPresenter(private val usersRepository: GitHubUsersRepository, private val router: Router, private val screens : IScreens) :
+class UsersPresenter(
+    private val usersRepository: GitHubUsersRepository,
+    private val router: Router,
+    private val screens: IScreens
+) :
     MvpPresenter<UsersView>(), BackButtonListener {
 
     val usersListPresenter = UsersListPresenter()
+    var usersList = mutableListOf<GitHubUser>()
 
     class UsersListPresenter : IUserListPresenter {
 
@@ -36,17 +41,20 @@ class UsersPresenter(private val usersRepository: GitHubUsersRepository, private
         loadData()
 
         usersListPresenter.itemClickListener = {
-            router.navigateTo(screens.userDetails(usersRepository.getUsersList()[it.pos]))
+            router.navigateTo(screens.userDetails(usersList[it.pos]))
         }
     }
 
+
     private fun loadData() {
-        val users = usersRepository.getUsersList()
-        usersListPresenter.users.addAll(users)
-        viewState.updateList()
+        usersRepository.getUsersList().subscribe({
+            usersList = it as MutableList<GitHubUser>
+            usersListPresenter.users.addAll(it)
+            viewState.updateList()
+        }, {})
     }
 
-    override fun backPressed() : Boolean{
+    override fun backPressed(): Boolean {
         router.exit()
         return true
     }

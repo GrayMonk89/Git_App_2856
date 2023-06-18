@@ -1,5 +1,7 @@
 package ru.graymonk.poplib.gitapp.mvp.model
 
+import io.reactivex.rxjava3.core.Single
+
 class GitHubUsersRepository {
 
     private val usersList = listOf(
@@ -12,7 +14,9 @@ class GitHubUsersRepository {
         GitHubUser("Sarah Connor")
     )
 
-    fun getUsersList() : List<GitHubUser>{
-        return usersList
+    fun getUsersList(): Single<List<GitHubUser>> {
+        return Single.create {
+            it.onSuccess(usersList)
+        }
     }
 }
