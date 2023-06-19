@@ -1,5 +1,6 @@
 package ru.graymonk.poplib.gitapp.mvp.presenter
 
+import android.annotation.SuppressLint
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 import ru.graymonk.poplib.gitapp.mvp.model.GitHubUser
@@ -18,7 +19,6 @@ class UsersPresenter(
     MvpPresenter<UsersView>(), BackButtonListener {
 
     val usersListPresenter = UsersListPresenter()
-    var usersList = mutableListOf<GitHubUser>()
 
     class UsersListPresenter : IUserListPresenter {
 
@@ -40,15 +40,16 @@ class UsersPresenter(
 
         loadData()
 
+
         usersListPresenter.itemClickListener = {
-            router.navigateTo(screens.userDetails(usersList[it.pos]))
+            router.navigateTo(screens.userDetails(usersListPresenter.users[it.pos]))
         }
     }
 
 
+    @SuppressLint("CheckResult")
     private fun loadData() {
         usersRepository.getUsersList().subscribe({
-            usersList = it as MutableList<GitHubUser>
             usersListPresenter.users.addAll(it)
             viewState.updateList()
         }, {})
