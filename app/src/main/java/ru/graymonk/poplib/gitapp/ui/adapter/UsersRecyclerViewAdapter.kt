@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.graymonk.poplib.gitapp.databinding.ItemUserBinding
 import ru.graymonk.poplib.gitapp.mvp.presenter.list.IUserListPresenter
+import ru.graymonk.poplib.gitapp.ui.image.GlideImageLoader
 
 class UsersRecyclerViewAdapter(private val presenter: IUserListPresenter) : RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemUserBinding.inflate(
-        LayoutInflater.from(parent.context), parent, false)).apply {
+        LayoutInflater.from(parent.context), parent, false), GlideImageLoader()).apply {
             itemView.setOnClickListener {
                 presenter.itemClickListener?.invoke(this)
             }
