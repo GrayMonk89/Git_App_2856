@@ -10,7 +10,7 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.graymonk.poplib.gitapp.App
 import ru.graymonk.poplib.gitapp.databinding.FragmentUserDiteailsBinding
-import ru.graymonk.poplib.gitapp.mvp.model.GitHubUser
+import ru.graymonk.poplib.gitapp.mvp.model.entity.GitHubUser
 import ru.graymonk.poplib.gitapp.mvp.presenter.UserDetailsPresenter
 import ru.graymonk.poplib.gitapp.mvp.view.UserDetailsView
 import ru.graymonk.poplib.gitapp.ui.activity.BackButtonListener

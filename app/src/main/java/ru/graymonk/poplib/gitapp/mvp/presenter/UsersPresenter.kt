@@ -2,9 +2,10 @@ package ru.graymonk.poplib.gitapp.mvp.presenter
 
 import android.annotation.SuppressLint
 import com.github.terrakok.cicerone.Router
+import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
-import ru.graymonk.poplib.gitapp.mvp.model.GitHubUser
-import ru.graymonk.poplib.gitapp.mvp.model.GitHubUsersRepository
+import ru.graymonk.poplib.gitapp.mvp.model.entity.GitHubUser
+import ru.graymonk.poplib.gitapp.mvp.model.repository.IGitHubUsersRepository
 import ru.graymonk.poplib.gitapp.mvp.presenter.list.IUserListPresenter
 import ru.graymonk.poplib.gitapp.mvp.view.UsersView
 import ru.graymonk.poplib.gitapp.mvp.view.list.UserItemView
@@ -12,7 +13,8 @@ import ru.graymonk.poplib.gitapp.navigation.IScreens
 import ru.graymonk.poplib.gitapp.ui.activity.BackButtonListener
 
 class UsersPresenter(
-    private val usersRepository: GitHubUsersRepository,
+    private val uiSchedulers: Scheduler,
+    private val usersRepository: IGitHubUsersRepository,
     private val router: Router,
     private val screens: IScreens
 ) :
@@ -49,8 +51,9 @@ class UsersPresenter(
 
     @SuppressLint("CheckResult")
     private fun loadData() {
-        usersRepository.getUsersList().subscribe({
-            usersListPresenter.users.addAll(it)
+        usersRepository.getUsersList().observeOn(uiSchedulers).subscribe({ userList ->
+            usersListPresenter.users.clear()
+            usersListPresenter.users.addAll(userList)
             viewState.updateList()
         }, {})
     }

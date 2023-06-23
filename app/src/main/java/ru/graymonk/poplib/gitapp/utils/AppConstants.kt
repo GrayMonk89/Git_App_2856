@@ -7,4 +7,6 @@ object AppConstants {
     const val DEFAULT_VALUE_ONE = 1
     const val DEFAULT_VALUE_TWO = 2
     const val DEFAULT_VALUE_THREE = 3
+
+    const val CONST_SEVER_URL = "https://api.github.com/"
 }
