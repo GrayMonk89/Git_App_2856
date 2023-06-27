@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import coil.load
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.graymonk.poplib.gitapp.App
@@ -65,5 +66,8 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackButtonL
 
     override fun showDetails() {
         binding.userDetailFragmentTextViewLogin.text = user?.login
+        binding.userDetailFragmentTextViewId.text = user?.id
+        binding.userDetailFragmentImageViewAvatar.load(user?.avatarUrl)
+        binding.userDetailFragmentTextViewRepository.text = user?.reposeUrl
     }
 }

@@ -12,6 +12,9 @@ import ru.graymonk.poplib.gitapp.mvp.view.list.UserItemView
 import ru.graymonk.poplib.gitapp.navigation.IScreens
 import ru.graymonk.poplib.gitapp.ui.activity.BackButtonListener
 
+/**
+ * !!!-->58.45<--!!!
+ */
 class UsersPresenter(
     private val uiSchedulers: Scheduler,
     private val usersRepository: IGitHubUsersRepository,
@@ -29,7 +32,7 @@ class UsersPresenter(
 
         override fun bindView(view: UserItemView) {
             val user = users[view.pos]
-            user.login?.let() { view.setLogin(it) }
+            user.login.let() { view.setLogin(it) }
             user.avatarUrl?.let { view.loadAvatar(it) }
         }
 

@@ -7,4 +7,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="same_text">Hello fragment</string>
     <string name="same_description">Same description</string>
+    <string name="id">ID:</string>
+    <string name="login">Login:</string>
 </resources>
