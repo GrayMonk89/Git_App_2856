@@ -11,6 +11,7 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.graymonk.poplib.gitapp.App
 import ru.graymonk.poplib.gitapp.databinding.FragmentUsersBinding
+import ru.graymonk.poplib.gitapp.mvp.cache.UsersCacheImplementation
 import ru.graymonk.poplib.gitapp.mvp.model.api.ApiHolder
 import ru.graymonk.poplib.gitapp.mvp.model.entity.room.DataBase
 import ru.graymonk.poplib.gitapp.mvp.model.repository.retrofit.RetrofitGitHubUserRepositoryImplementation
@@ -25,8 +26,13 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     private val binding: FragmentUsersBinding get() = _binding!!
 
     private val presenter by moxyPresenter {
-        UsersPresenter(AndroidSchedulers.mainThread(),
-            RetrofitGitHubUserRepositoryImplementation(ApiHolder.api, App.networkStatus, DataBase.getInstance()),
+        UsersPresenter(
+            AndroidSchedulers.mainThread(),
+            RetrofitGitHubUserRepositoryImplementation(
+                ApiHolder.api,
+                App.networkStatus,
+                UsersCacheImplementation(DataBase.getInstance())
+            ),
             App.instance.router,
             App.instance.androidScreens
         )

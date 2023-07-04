@@ -1,6 +1,7 @@
 package ru.graymonk.poplib.gitapp.mvp.presenter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
@@ -46,7 +47,6 @@ class UsersPresenter(
 
         loadData()
 
-
         usersListPresenter.itemClickListener = {
             router.navigateTo(screens.userDetails(usersListPresenter.users[it.pos]))
         }
@@ -59,6 +59,7 @@ class UsersPresenter(
             usersListPresenter.users.clear()
             usersListPresenter.users.addAll(userList)
             viewState.updateList()
+            Log.d("@@@", "$userList")
         }, {})
     }
 
