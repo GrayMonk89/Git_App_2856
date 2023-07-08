@@ -1,6 +1,7 @@
 package ru.graymonk.poplib.gitapp.ui.activity
 
 import android.os.Bundle
+import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -9,13 +10,19 @@ import ru.graymonk.poplib.gitapp.R
 import ru.graymonk.poplib.gitapp.databinding.ActivityMainBinding
 import ru.graymonk.poplib.gitapp.mvp.presenter.MainPresenter
 import ru.graymonk.poplib.gitapp.mvp.view.MainView
+import javax.inject.Inject
 
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val presenter by moxyPresenter { MainPresenter(App.instance.router, App.instance.androidScreens) }
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
+    private val presenter by moxyPresenter { MainPresenter().apply {
+        App.instance.appComponent.inject(this)
+    } }
 
 
 
@@ -25,18 +32,20 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        App.instance.appComponent.inject(this)
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
 
-        App.instance.navigationHolder.setNavigator(navigator)
+        navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
 
-        App.instance.navigationHolder.removeNavigator()
+        navigatorHolder.removeNavigator()
     }
 
     @Deprecated("Deprecated in Java")

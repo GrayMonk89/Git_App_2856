@@ -8,5 +8,7 @@ object AppConstants {
     const val DEFAULT_VALUE_TWO = 2
     const val DEFAULT_VALUE_THREE = 3
 
-    const val CONST_SEVER_URL = "https://api.github.com/"
+    const val CONST_SERVER_URL = "https://api.github.com/"
+
+    const val USERS_DATA_BASE_NAME = "datadase.db"
 }

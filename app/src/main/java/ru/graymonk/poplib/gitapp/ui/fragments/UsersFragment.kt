@@ -6,15 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.graymonk.poplib.gitapp.App
 import ru.graymonk.poplib.gitapp.databinding.FragmentUsersBinding
-import ru.graymonk.poplib.gitapp.mvp.cache.UsersCacheImplementation
-import ru.graymonk.poplib.gitapp.mvp.model.api.ApiHolder
-import ru.graymonk.poplib.gitapp.mvp.model.entity.room.DataBase
-import ru.graymonk.poplib.gitapp.mvp.model.repository.retrofit.RetrofitGitHubUserRepositoryImplementation
 import ru.graymonk.poplib.gitapp.mvp.presenter.UsersPresenter
 import ru.graymonk.poplib.gitapp.mvp.view.UsersView
 import ru.graymonk.poplib.gitapp.ui.activity.BackButtonListener
@@ -26,16 +21,9 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     private val binding: FragmentUsersBinding get() = _binding!!
 
     private val presenter by moxyPresenter {
-        UsersPresenter(
-            AndroidSchedulers.mainThread(),
-            RetrofitGitHubUserRepositoryImplementation(
-                ApiHolder.api,
-                App.networkStatus,
-                UsersCacheImplementation(DataBase.getInstance())
-            ),
-            App.instance.router,
-            App.instance.androidScreens
-        )
+        UsersPresenter().apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     private lateinit var adapter: UsersRecyclerViewAdapter
@@ -61,7 +49,9 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     override fun init() {
         binding.usersFragmentRecyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = UsersRecyclerViewAdapter(presenter.usersListPresenter)
+        adapter = UsersRecyclerViewAdapter(presenter.usersListPresenter).apply {
+            App.instance.appComponent.inject(this)
+        }
         binding.usersFragmentRecyclerView.adapter = adapter
     }
 

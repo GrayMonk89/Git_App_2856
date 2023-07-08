@@ -4,10 +4,13 @@ import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 import ru.graymonk.poplib.gitapp.mvp.view.UserDetailsView
 import ru.graymonk.poplib.gitapp.ui.activity.BackButtonListener
+import javax.inject.Inject
 
-class UserDetailsPresenter(private val router: Router) : MvpPresenter<UserDetailsView>(),
+class UserDetailsPresenter() : MvpPresenter<UserDetailsView>(),
     BackButtonListener {
 
+    @Inject
+     lateinit var router: Router
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.showDetails()

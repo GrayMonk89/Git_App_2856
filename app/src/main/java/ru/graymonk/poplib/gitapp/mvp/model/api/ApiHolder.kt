@@ -14,7 +14,7 @@ object ApiHolder {
             .excludeFieldsWithoutExposeAnnotation()
             .create()
 
-        Retrofit.Builder().baseUrl(AppConstants.CONST_SEVER_URL)
+        Retrofit.Builder().baseUrl(AppConstants.CONST_SERVER_URL)
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()

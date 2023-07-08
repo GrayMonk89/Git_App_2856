@@ -36,7 +36,7 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackButtonL
     }
 
     private val presenter: UserDetailsPresenter by moxyPresenter {
-        UserDetailsPresenter(App.instance.router)
+        UserDetailsPresenter()
     }
 
 
@@ -54,6 +54,8 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackButtonL
             arguments = Bundle().apply {
                 putParcelable(ARG_CURRENT_USER, gitHubUser)
             }
+
+            App.instance.appComponent.inject(this)
         }
     }
 

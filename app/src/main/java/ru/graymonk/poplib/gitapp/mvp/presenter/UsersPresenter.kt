@@ -12,17 +12,22 @@ import ru.graymonk.poplib.gitapp.mvp.view.UsersView
 import ru.graymonk.poplib.gitapp.mvp.view.list.UserItemView
 import ru.graymonk.poplib.gitapp.navigation.IScreens
 import ru.graymonk.poplib.gitapp.ui.activity.BackButtonListener
+import javax.inject.Inject
 
-/**
- * !!!-->58.45<--!!!
- */
-class UsersPresenter(
-    private val uiSchedulers: Scheduler,
-    private val usersRepository: IGitHubUsersRepository,
-    private val router: Router,
-    private val screens: IScreens
-) :
+class UsersPresenter :
     MvpPresenter<UsersView>(), BackButtonListener {
+
+    @Inject
+     lateinit var uiSchedulers: Scheduler
+
+    @Inject
+     lateinit var usersRepository: IGitHubUsersRepository
+
+    @Inject
+     lateinit var router: Router
+
+    @Inject
+     lateinit var screens: IScreens
 
     val usersListPresenter = UsersListPresenter()
 
