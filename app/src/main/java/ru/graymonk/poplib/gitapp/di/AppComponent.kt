@@ -11,7 +11,6 @@ import ru.graymonk.poplib.gitapp.mvp.presenter.MainPresenter
 import ru.graymonk.poplib.gitapp.mvp.presenter.UsersPresenter
 import ru.graymonk.poplib.gitapp.ui.activity.MainActivity
 import ru.graymonk.poplib.gitapp.ui.adapter.UsersRecyclerViewAdapter
-import ru.graymonk.poplib.gitapp.ui.fragments.UserDetailsFragment
 import ru.graymonk.poplib.gitapp.ui.fragments.UsersFragment
 import javax.inject.Singleton
 
@@ -31,7 +30,7 @@ interface AppComponent {
     fun inject(mainPresenter: MainPresenter)
     fun inject(usersPresenter: UsersPresenter)
     fun inject(usersFragment: UsersFragment)
-    fun inject(userDetailsFragment: UserDetailsFragment)
+    //fun inject(userDetailsFragment: UserDetailsFragment)
     fun inject(usersRecyclerViewAdapter: UsersRecyclerViewAdapter)
 
 

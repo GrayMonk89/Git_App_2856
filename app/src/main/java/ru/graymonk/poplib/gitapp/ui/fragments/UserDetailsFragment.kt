@@ -9,7 +9,6 @@ import androidx.annotation.RequiresApi
 import coil.load
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import ru.graymonk.poplib.gitapp.App
 import ru.graymonk.poplib.gitapp.databinding.FragmentUserDiteailsBinding
 import ru.graymonk.poplib.gitapp.mvp.model.entity.GitHubUser
 import ru.graymonk.poplib.gitapp.mvp.presenter.UserDetailsPresenter
@@ -55,7 +54,7 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackButtonL
                 putParcelable(ARG_CURRENT_USER, gitHubUser)
             }
 
-            App.instance.appComponent.inject(this)
+            //App.instance.appComponent.inject(this)
         }
     }
 
